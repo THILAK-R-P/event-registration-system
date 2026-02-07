@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} /> {/* <--- Add this */}
+          <Route path="/dashboard" element={<Dashboard />} /> 
         </Routes>
       </div>
     </Router>
