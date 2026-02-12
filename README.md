@@ -1,7 +1,151 @@
-# 🎟️ Event Registration System A full-stack web application for managing events and attendee registrations. This project enables users to create, browse, and register for events through an intuitive interface. --- ## 📖 Introduction The **Event Registration System** is designed to simplify event management for organizers and attendees alike. With a modern React frontend, it delivers a seamless user experience for creating events, user authentication, and managing registrations. Whether you're hosting a workshop, conference, or meetup, this system helps streamline the entire registration process. --- ## ✨ Features - **User Authentication:** Secure login and registration for event participants and organizers. - **Event Creation:** Organizers can create and manage events with custom details. - **Event Listing:** Browse all upcoming events, filter, and search. - **Easy Registration:** Users can quickly register for events with a simple form. - **Responsive Design:** Works great on desktop and mobile devices. - **Dashboard:** Personalized dashboard for users and organizers. - **Modern UI:** Clean and attractive interface built with React and modern CSS. --- ## 🚀 Installation ### Prerequisites - [Node.js](https://nodejs.org/) (v14 or above) - [npm](https://www.npmjs.com/) (comes with Node.js) - (Backend setup if available; instructions assume frontend only) ### Steps 1. **Clone the repository** ```bash git clone https://github.com/your-username/event-registration-system.git cd event-registration-system/client ``` 2. **Install dependencies** ```bash npm install ``` 3. **Start the development server** ```bash npm start ``` The app will be available at [http://localhost:3000](http://localhost:3000). --- ## 📋 Usage - **Browse Events:** On the landing page, view all available events. - **Register/Login:** Create an account or log in to access personalized features. - **Create Events:** As an organizer, use your dashboard to add and manage events. - **Register for Events:** Click on an event to see details and register as a participant. - **Manage Dashboard:** View your registered or organized events in your dashboard. --- ## 🤝 Contributing Contributions are welcome! To contribute: 1. **Fork** the repository 2. **Create** your feature branch (`git checkout -b feature/YourFeature`) 3. **Commit** your changes (`git commit -am 'Add some feature'`) 4. **Push** to the branch (`git push origin feature/YourFeature`) 5. **Open a Pull Request** Please see the [CONTRIBUTING.md](CONTRIBUTING.md) for more details (create if not present). --- ## 📄 License This project is licensed under the [MIT License](LICENSE). --- > Crafted with ❤️ by the Event Registration System team. --- **Feel free to open issues or submit pull requests to help improve this project!**
+# 🎟️ Event Registration System
 
-## License
-This project is licensed under the **MIT** License.
+A full-stack web application for managing events and attendee registrations.  
+Users can create, browse, and register for events through a clean and intuitive interface.
 
 ---
-🔗 GitHub Repo: https://github.com/THILAK-R-P/event-registration-system
+
+## 📖 Introduction
+
+The **Event Registration System** simplifies event management for both organizers and attendees. It provides a smooth workflow to create events, manage registrations, and track participation.
+
+This system is ideal for conferences, workshops, meetups, college events, and community programs.
+
+---
+
+## ✨ Features
+
+- 🗓️ Event Creation & Management (Create, Edit, Delete events)
+- 🔐 Secure User Authentication (Login/Register)
+- 🔍 Browse and view event details
+- 📝 Simple event registration process
+- 📊 Personalized user dashboard
+- 📱 Fully responsive design
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React
+- CSS / Modern UI
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+
+---
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm
+
+---
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/THILAK-R-P/event-registration-system.git
+cd event-registration-system
+```
+
+---
+
+### Install Client Dependencies
+
+```bash
+cd client
+npm install
+```
+
+---
+
+### Install Server Dependencies (if backend exists)
+
+```bash
+cd ../server
+npm install
+```
+
+---
+
+## ▶️ Running the Application
+
+### Start Frontend
+
+```bash
+cd client
+npm start
+```
+
+App runs at:
+```
+http://localhost:3000
+```
+
+---
+
+### Start Backend
+
+```bash
+cd server
+npm start
+```
+
+---
+
+## 📌 Usage
+
+1. Register or login
+2. Browse available events
+3. Create events (organizers)
+4. Register for events (attendees)
+5. Manage everything from your dashboard
+
+---
+
+## 📂 Project Structure
+
+```
+event-registration-system/
+│
+├── client/        # React frontend
+├── server/        # Express backend
+├── README.md
+└── package.json
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+```bash
+git checkout -b feature/your-feature-name
+git commit -m "Add feature"
+git push origin feature/your-feature-name
+```
+
+Then open a Pull Request 🚀
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.  
+See the LICENSE file for more details.
+
+---
+
+## 🔗 Repository
+
+https://github.com/THILAK-R-P/event-registration-system
+
+---
+
+### ❤️ Built with love by the Event Registration System contributors
