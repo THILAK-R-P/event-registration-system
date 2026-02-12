@@ -67,10 +67,10 @@ exports.deleteEvent = async (req, res) => {
         if (!event) return res.status(404).json({ message: "Event not found" });
 
 
-        // Admin check removed for UI demo
-        // if (req.user.role !== 'admin') {
-        //     return res.status(403).json({ message: "Access denied. Admins only." });
-        // }
+        // Check if user is admin or the event organizer
+        if (req.user.role !== 'admin' && event.organizer.toString() !== req.user.id) {
+            return res.status(403).json({ message: "Access denied. You can only delete your own events." });
+        }
 
         await event.deleteOne();
         res.json({ message: "Event removed" });
