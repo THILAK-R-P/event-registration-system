@@ -1,0 +1,210 @@
+/* Landing Page Specifics */
+.landing-page {
+    background-color: var(--surface-color);
+    min-height: 100vh;
+}
+
+/* Navbar Enhancements */
+.landing-page .navbar {
+    background-color: var(--navbar-bg);
+    /* Ensure dark blue */
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 8rem 0 6rem;
+    /* Increased top padding */
+    background-color: #f5f3ff;
+    border-bottom-right-radius: 0;
+    text-align: center;
+    /* Center text */
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 850px;
+    /* Limit width for centered look */
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    color: #1e1b4b;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin: 0 auto 2.5rem;
+    /* Center margin */
+    max-width: 600px;
+    line-height: 1.7;
+}
+
+.btn-lg {
+    padding: 1rem 3rem;
+    font-size: 1.125rem;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+/* Hero Image - adjusted for centered layout */
+.hero-image {
+    position: relative;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.illustration-placeholder {
+    position: relative;
+    width: 400px;
+    /* Fixed width for the art container */
+    height: 100%;
+}
+
+.circle-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    background: white;
+    border-radius: 50%;
+    z-index: 0;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.card-mockup {
+    position: absolute;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-lg);
+    z-index: 1;
+}
+
+.card-1 {
+    width: 200px;
+    height: 140px;
+    top: 30%;
+    left: 5%;
+    transform: rotate(-5deg);
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.card-2 {
+    width: 180px;
+    height: 220px;
+    top: 10%;
+    right: 10%;
+    transform: rotate(5deg);
+    background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+    border: 1px solid #c7d2fe;
+}
+
+/* Features Section */
+.features-section {
+    padding: 5rem 0;
+    background-color: var(--surface-color);
+    text-align: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+/* Feature Card (now a Link) */
+a.feature-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.feature-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #f3f4f6;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #e0e7ff;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f5f3ff;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.feature-card:hover .feature-icon {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-container {
+        padding: 0 1.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+        /* Keep visible but maybe smaller or just let it stack? 
+         User wanted centered content. Stacking is good.
+      */
+        height: 300px;
+    }
+}

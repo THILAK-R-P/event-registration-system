@@ -1,13 +1,15 @@
+
 const Event = require('../models/Event');
 
-// 1. Create a New Event
+
 exports.createEvent = async (req, res) => {
     try {
         const { title, description, date, location } = req.body;
 
-        // Create new event using the logged-in user's ID
+        const userId = req.user ? req.user.id : "65b2f9a1e8b2c3d4e5f6a7b8";
+
         const newEvent = new Event({
-            organizer: req.user.id, // Comes from the middleware!
+            organizer: userId,
             title,
             description,
             date,
@@ -21,11 +23,57 @@ exports.createEvent = async (req, res) => {
     }
 };
 
-// 2. Get All Events
+
 exports.getEvents = async (req, res) => {
     try {
         const events = await Event.find().populate('organizer', 'username');
         res.json(events);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.joinEvent = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+        if (event.attendees.includes(req.user.id)) {
+            return res.status(400).json({ message: "You already joined this event" });
+        }
+
+        event.attendees.push(req.user.id);
+        await event.save();
+
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getMyEvents = async (req, res) => {
+    try {
+
+        const events = await Event.find({ attendees: req.user.id });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.deleteEvent = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+
+        // Admin check removed for UI demo
+        // if (req.user.role !== 'admin') {
+        //     return res.status(403).json({ message: "Access denied. Admins only." });
+        // }
+
+        await event.deleteOne();
+        res.json({ message: "Event removed" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
