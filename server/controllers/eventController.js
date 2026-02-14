@@ -67,7 +67,7 @@ exports.deleteEvent = async (req, res) => {
         if (!event) return res.status(404).json({ message: "Event not found" });
 
 
-        // Check if user is admin or the event organizer
+
         if (req.user.role !== 'admin' && event.organizer.toString() !== req.user.id) {
             return res.status(403).json({ message: "Access denied. You can only delete your own events." });
         }

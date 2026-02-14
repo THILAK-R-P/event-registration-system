@@ -1,15 +1,15 @@
 :root {
-  /* Brand Colors */
+
   --primary-color: #6366f1;
-  /* Indigo-500 from image */
+
   --primary-hover: #4f46e5;
   --secondary-color: #818cf8;
   --background-color: #f3f4f6;
-  /* Light Gray/Purple tint */
+
   --surface-color: #ffffff;
 
   --navbar-bg: #312e81;
-  /* Dark Indigo from image */
+
   --navbar-text: #e0e7ff;
 
   --text-primary: #111827;
@@ -17,17 +17,17 @@
   --danger-color: #ef4444;
   --success-color: #10b981;
 
-  /* Gradients */
+
   --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   --hover-gradient: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
 
-  /* UI Elements */
+
   --radius: 12px;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
-  /* Fonts */
+
   --font-heading: 'Poppins', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -63,7 +63,7 @@ a {
   transition: all 0.3s ease;
 }
 
-/* Utilities */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -123,14 +123,14 @@ a {
   border-color: #fca5a5;
 }
 
-/* Layout Containers */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-/* Navbar Global Styles - Dark Theme */
+
 .navbar {
   background-color: var(--navbar-bg);
   padding: 1rem 0;
@@ -164,7 +164,7 @@ a {
   width: 6px;
   height: 20px;
   background-color: #a5b4fc;
-  /* Light accent on logo */
+
   border-radius: 2px;
   transform: skew(-15deg);
 }

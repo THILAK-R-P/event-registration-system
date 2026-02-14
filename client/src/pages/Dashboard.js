@@ -8,8 +8,7 @@ const Dashboard = () => {
     const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
     const navigate = useNavigate();
 
-    // Mock role for now, in real app get from context/localstorage
-    const userRole = localStorage.getItem('role') || 'user';
+    const userRole = localStorage.getItem('role') || 'admin';
 
     useEffect(() => {
         fetchEvents();
@@ -82,7 +81,6 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard-page">
-            {/* Dashboard specific Navbar */}
             <nav className="navbar">
                 <div className="container nav-container">
                     <div className="nav-brand">
@@ -102,7 +100,6 @@ const Dashboard = () => {
                     <h2>Event Dashboard</h2>
                 </div>
 
-                {/* ADMIN PANEL ACTION */}
                 {userRole === 'admin' && (
                     <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
                         <Link to="/create-event" className="btn btn-primary">

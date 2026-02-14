@@ -88,7 +88,7 @@
     border-top: 1px solid #f3f4f6;
 }
 
-/* Override btn-secondary for this context if needed to have dark text since it's on white bg */
+
 .btn-secondary.text-dark {
     background-color: white;
     color: var(--text-secondary);

@@ -1,25 +1,24 @@
-/* Landing Page Specifics */
 .landing-page {
     background-color: var(--surface-color);
     min-height: 100vh;
 }
 
-/* Navbar Enhancements */
+
 .landing-page .navbar {
     background-color: var(--navbar-bg);
-    /* Ensure dark blue */
+
     padding: 1rem 0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Hero Section */
+
 .hero-section {
     padding: 8rem 0 6rem;
-    /* Increased top padding */
+
     background-color: #f5f3ff;
     border-bottom-right-radius: 0;
     text-align: center;
-    /* Center text */
+
 }
 
 .hero-container {
@@ -29,7 +28,7 @@
     justify-content: center;
     gap: 3rem;
     max-width: 850px;
-    /* Limit width for centered look */
+
     margin: 0 auto;
 }
 
@@ -45,7 +44,7 @@
     font-size: 1.25rem;
     color: var(--text-secondary);
     margin: 0 auto 2.5rem;
-    /* Center margin */
+
     max-width: 600px;
     line-height: 1.7;
 }
@@ -56,7 +55,7 @@
     box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
-/* Hero Image - adjusted for centered layout */
+
 .hero-image {
     position: relative;
     height: 350px;
@@ -70,7 +69,7 @@
 .illustration-placeholder {
     position: relative;
     width: 400px;
-    /* Fixed width for the art container */
+
     height: 100%;
 }
 
@@ -115,7 +114,7 @@
     border: 1px solid #c7d2fe;
 }
 
-/* Features Section */
+
 .features-section {
     padding: 5rem 0;
     background-color: var(--surface-color);
@@ -129,7 +128,7 @@
     margin-top: 3rem;
 }
 
-/* Feature Card (now a Link) */
+
 a.feature-card {
     text-decoration: none;
     color: inherit;
@@ -202,9 +201,7 @@ a.feature-card {
     }
 
     .hero-image {
-        /* Keep visible but maybe smaller or just let it stack? 
-         User wanted centered content. Stacking is good.
-      */
+
         height: 300px;
     }
 }

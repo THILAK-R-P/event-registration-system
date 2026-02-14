@@ -1,4 +1,3 @@
-/* Dashboard Layout */
 .dashboard-page {
     min-height: 100vh;
     background-color: var(--background-color);
@@ -16,7 +15,7 @@
     align-items: center;
 }
 
-/* Admin Panel */
+
 .admin-panel {
     background: var(--surface-color);
     padding: 2rem;
@@ -42,7 +41,7 @@
     padding: 0.75rem 1rem;
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    /* Slightly different than global radius for inputs */
+
     font-family: var(--font-body);
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -59,22 +58,22 @@
     gap: 1.5rem;
 }
 
-/* Event Grid Responsive */
+
 .events-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* Desktop: 3 columns */
+
     gap: 2rem;
 }
 
-/* Tablet */
+
 @media (max-width: 1024px) {
     .events-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Mobile */
+
 @media (max-width: 640px) {
     .events-grid {
         grid-template-columns: 1fr;
@@ -85,7 +84,7 @@
     }
 }
 
-/* Event Card */
+
 .event-card {
     background: var(--surface-color);
     border-radius: var(--radius);
@@ -94,7 +93,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* Equal height cards */
+
     position: relative;
     overflow: hidden;
     border: 1px solid transparent;
@@ -154,11 +153,11 @@
 
 .card-footer {
     padding: 1rem 1.5rem 1.5rem;
-    /* reduce top padding */
+
     border-top: none;
-    /* Removed border */
+
     background-color: transparent;
-    /* Transparent bg */
+
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -25,7 +25,7 @@ const Landing = () => {
                         <p>The ultimate platform to create, join, and track events with ease. Join our community today.</p>
                         <Link to="/register" className="btn btn-primary btn-lg">Get Started</Link>
                     </div>
-                    {/* Image hidden or centered below in CSS for centered layout request */}
+
 
                 </div>
             </header>

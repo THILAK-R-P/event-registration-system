@@ -18,7 +18,7 @@ const MyEvents = () => {
                 setEvents(res.data);
             } catch (err) {
                 console.error(err);
-                // silent fail or redirect if needed
+
             }
         };
         fetchMyEvents();
