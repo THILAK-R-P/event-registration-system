@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import '../css/createEvent.css';
+import { useNavigate, useParams, Link } from 'react-router-dom';
+import '../css/createEvent.css'; // Reusing create event css
 
-const CreateEvent = () => {
+const UpdateEvent = () => {
+    const { id } = useParams();
     const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
     const navigate = useNavigate();
 
     useEffect(() => {
-        const role = localStorage.getItem('role');
-        if (role !== 'admin') {
-            alert("Access Denied: Only Admins can create events");
-            navigate('/dashboard');
+        fetchEvent();
+        // eslint-disable-next-line
+    }, []);
+
+    const fetchEvent = async () => {
+        try {
+            const res = await axios.get(`http://localhost:5000/api/events`);
+            // The API returns all events, finding the specific one. 
+            // Ideally there should be a get-one endpoint, but getEvents returns all.
+            // Wait, looking at eventController.js, there is NO getOneEvent.
+            // I can use the existing list and find it, or add getOneEvent.
+            // Adding getOneEvent is better but I want to minimize backend changes.
+            // However, the dashboard has the data. 
+            // Let's filter from the list for now.
+            const event = res.data.find(e => e._id === id);
+            if (event) {
+                setFormData({
+                    title: event.title,
+                    description: event.description,
+                    date: event.date.split('T')[0], // Extract date part
+                    location: event.location
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Failed to fetch event details');
         }
-    }, [navigate]);
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,19 +46,22 @@ const CreateEvent = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            if (!token) {
-                alert('Please login first');
-                navigate('/login');
+            const role = localStorage.getItem('role');
+
+            if (role !== 'admin') {
+                alert('Only admins can update events');
+                navigate('/dashboard');
                 return;
             }
-            await axios.post('http://localhost:5000/api/events', formData, {
+
+            await axios.put(`http://localhost:5000/api/events/${id}`, formData, {
                 headers: { Authorization: token }
             });
-            alert('Event Created Successfully!');
+            alert('Event Updated Successfully!');
             navigate('/dashboard');
         } catch (err) {
             console.error(err);
-            alert('Failed. Only Admins can create events.');
+            alert('Failed to update event.');
         }
     };
 
@@ -53,7 +79,7 @@ const CreateEvent = () => {
                     </div>
                     <div className="nav-menu">
                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                        <span className="nav-link active">Create Event</span>
+                        <Link to="/create-event" className="nav-link">Create Event</Link>
                         <Link to="/myevents" className="nav-link">My Events</Link>
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
                     </div>
@@ -63,8 +89,8 @@ const CreateEvent = () => {
             <div className="container create-event-container">
                 <div className="form-card">
                     <div className="form-header">
-                        <h2>Create New Event</h2>
-                        <p>Fill in the details to host a new event.</p>
+                        <h2>Update Event</h2>
+                        <p>Edit event details.</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="event-form">
@@ -73,7 +99,6 @@ const CreateEvent = () => {
                             <input
                                 className="input-field"
                                 name="title"
-                                placeholder="e.g. Annual Tech Conference"
                                 value={formData.title}
                                 onChange={handleChange}
                                 required
@@ -85,7 +110,6 @@ const CreateEvent = () => {
                             <textarea
                                 className="input-field textarea-field"
                                 name="description"
-                                placeholder="Describe the event..."
                                 value={formData.description}
                                 onChange={handleChange}
                                 required
@@ -110,7 +134,6 @@ const CreateEvent = () => {
                                 <input
                                     className="input-field"
                                     name="location"
-                                    placeholder="e.g. New York Convention Center"
                                     value={formData.location}
                                     onChange={handleChange}
                                     required
@@ -120,7 +143,7 @@ const CreateEvent = () => {
 
                         <div className="form-actions">
                             <Link to="/dashboard" className="btn btn-secondary text-dark">Cancel</Link>
-                            <button type="submit" className="btn btn-primary">Create Event</button>
+                            <button type="submit" className="btn btn-primary">Update Event</button>
                         </div>
                     </form>
                 </div>
@@ -129,4 +152,4 @@ const CreateEvent = () => {
     );
 };
 
-export default CreateEvent;
+export default UpdateEvent;

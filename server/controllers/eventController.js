@@ -78,3 +78,25 @@ exports.deleteEvent = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+exports.updateEvent = async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) return res.status(404).json({ message: "Event not found" });
+
+        if (req.user.role !== 'admin' && event.organizer.toString() !== req.user.id) {
+            return res.status(403).json({ message: "Access denied. Only admins can update events." });
+        }
+
+        const { title, description, date, location } = req.body;
+        event.title = title || event.title;
+        event.description = description || event.description;
+        event.date = date || event.date;
+        event.location = location || event.location;
+
+        await event.save();
+        res.json(event);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};

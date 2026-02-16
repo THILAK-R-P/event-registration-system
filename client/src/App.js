@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import CreateEvent from './pages/CreateEvent';
+import UpdateEvent from './pages/UpdateEvent';
 import MyEvents from './pages/MyEvents';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            <Route path="/update-event/:id" element={<UpdateEvent />} />
             <Route path="/myevents" element={<MyEvents />} />
           </Routes>
         </div>

@@ -88,7 +88,7 @@ const Dashboard = () => {
                     </div>
                     <div className="nav-menu">
                         <span className="nav-link active">Dashboard</span>
-                        <Link to="/create-event" className="nav-link">Create Event</Link>
+                        {userRole === 'admin' && <Link to="/create-event" className="nav-link">Create Event</Link>}
                         <Link to="/myevents" className="nav-link">My Events</Link>
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
                     </div>
@@ -118,16 +118,18 @@ const Dashboard = () => {
                                         <h4 className="event-title">{event.title}</h4>
                                         <div style={{ marginTop: '0.25rem' }}></div>
                                     </div>
-                                    <button onClick={() => {
-                                        const token = localStorage.getItem('token');
-                                        if (!token) {
-                                            alert("You must be logged in to delete events");
-                                            return;
-                                        }
-                                        handleDelete(event._id);
-                                    }} className="btn btn-danger btn-sm-delete">
-                                        Delete
-                                    </button>
+                                    {userRole === 'admin' && (
+                                        <button onClick={() => {
+                                            const token = localStorage.getItem('token');
+                                            if (!token) {
+                                                alert("You must be logged in to delete events");
+                                                return;
+                                            }
+                                            handleDelete(event._id);
+                                        }} className="btn btn-danger btn-sm-delete">
+                                            Delete
+                                        </button>
+                                    )}
                                 </div>
 
                                 <p className="event-description">{event.description}</p>
@@ -146,12 +148,22 @@ const Dashboard = () => {
                             </div>
 
                             <div className="card-footer">
-                                <button
-                                    onClick={() => handleJoin(event._id)}
-                                    className="btn btn-primary w-full"
-                                >
-                                    Join Event
-                                </button>
+                                {userRole === 'admin' ? (
+                                    <Link
+                                        to={`/update-event/${event._id}`}
+                                        className="btn btn-primary w-full"
+                                        style={{ textAlign: 'center' }}
+                                    >
+                                        Update Event
+                                    </Link>
+                                ) : (
+                                    <button
+                                        onClick={() => handleJoin(event._id)}
+                                        className="btn btn-primary w-full"
+                                    >
+                                        Join Event
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ))}

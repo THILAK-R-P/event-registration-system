@@ -20,7 +20,7 @@ const Register = () => {
             alert('Registration Successful! Now you can login.');
 
 
-            navigate('/');
+            navigate('/login');
         } catch (err) {
             alert(err.response?.data?.message || 'Registration Failed');
         }

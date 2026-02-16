@@ -38,7 +38,7 @@ const MyEvents = () => {
                     </div>
                     <div className="nav-menu">
                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                        <Link to="/create-event" className="nav-link">Create Event</Link>
+                        {localStorage.getItem('role') === 'admin' && <Link to="/create-event" className="nav-link">Create Event</Link>}
                         <span className="nav-link active">My Events</span>
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
                     </div>
