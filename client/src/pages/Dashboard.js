@@ -6,9 +6,10 @@ import '../css/dashboard.css';
 const Dashboard = () => {
     const [events, setEvents] = useState([]);
     const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
+    const [activeTab, setActiveTab] = useState('bit'); // 'bit' or 'other'
     const navigate = useNavigate();
 
-    const userRole = localStorage.getItem('role') || 'admin';
+    const userRole = localStorage.getItem('role') || 'user';
 
     useEffect(() => {
         fetchEvents();
@@ -100,17 +101,39 @@ const Dashboard = () => {
                     <h2>Event Dashboard</h2>
                 </div>
 
-                {userRole === 'admin' && (
-                    <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'flex-end' }}>
+                {/* Categorization & Create Button Row */}
+                <div className="dashboard-actions">
+                    {/* Toggles Group */}
+                    <div className="dashboard-toggles">
+                        <button
+                            className={`btn ${activeTab === 'bit' ? 'btn-primary' : 'toggle-btn-secondary'}`}
+                            onClick={() => setActiveTab('bit')}
+                        >
+                            BIT Events
+                        </button>
+                        <button
+                            className={`btn ${activeTab === 'other' ? 'btn-primary' : 'toggle-btn-secondary'}`}
+                            onClick={() => setActiveTab('other')}
+                        >
+                            Other Events
+                        </button>
+                    </div>
+
+                    {/* Create Button */}
+                    {userRole === 'admin' && (
                         <Link to="/create-event" className="btn btn-primary">
                             + Create New Event
                         </Link>
-                    </div>
-                )}
+                    )}
+                </div>
 
-                <h3>Upcoming Events</h3>
+                <h3>Upcoming Events ({activeTab === 'bit' ? 'BIT' : 'Other'})</h3>
                 <div className="events-grid">
-                    {events.map(event => (
+                    {events.filter(event => {
+                        const locationLower = (event.location || '').toLowerCase();
+                        const isBitEvent = locationLower.includes('bit') || locationLower.includes('bannari amman institute of technology');
+                        return activeTab === 'bit' ? isBitEvent : !isBitEvent;
+                    }).map(event => (
                         <div key={event._id} className="event-card">
                             <div className="card-body">
                                 <div className="card-top">

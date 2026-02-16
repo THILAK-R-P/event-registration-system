@@ -182,3 +182,47 @@
     color: #ef4444;
     border-color: #fca5a5;
 }
+
+/* Dashboard Actions Toolbar */
+.dashboard-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-toggles {
+    display: flex;
+    gap: 1rem;
+    padding: 20px 20px 20px 0;
+}
+
+/* Custom secondary button for toggles */
+.toggle-btn-secondary {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn-secondary:hover {
+    background-color: #d1d5db;
+    color: #111;
+}
+
+/* Mobile responsiveness for action bar */
+@media (max-width: 640px) {
+    .dashboard-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .dashboard-toggles {
+        width: 100%;
+    }
+
+    .dashboard-toggles .btn {
+        flex: 1;
+    }
+}
