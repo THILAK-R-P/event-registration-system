@@ -90,7 +90,8 @@ const Dashboard = () => {
                     <div className="nav-menu">
                         <span className="nav-link active">Dashboard</span>
                         {userRole === 'admin' && <Link to="/create-event" className="nav-link">Create Event</Link>}
-                        <Link to="/myevents" className="nav-link">My Events</Link>
+                        {userRole === 'user' && <Link to="/myevents" className="nav-link">My Events</Link>}
+
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
                     </div>
                 </div>

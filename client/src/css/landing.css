@@ -3,14 +3,12 @@
     min-height: 100vh;
 }
 
-
 .landing-page .navbar {
     background-color: var(--navbar-bg);
 
     padding: 1rem 0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-
 
 .hero-section {
     padding: 8rem 0 6rem;
@@ -69,7 +67,6 @@
 .illustration-placeholder {
     position: relative;
     width: 400px;
-
     height: 100%;
 }
 
@@ -204,4 +201,13 @@ a.feature-card {
 
         height: 300px;
     }
+}
+btn btn-danger{
+    background-color: #f3f4f6;
+    color: var(--text-secondary);
+    border: 1px solid #e5e7eb;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
 }

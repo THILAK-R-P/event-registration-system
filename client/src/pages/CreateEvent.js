@@ -54,7 +54,6 @@ const CreateEvent = () => {
                     <div className="nav-menu">
                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
                         <span className="nav-link active">Create Event</span>
-                        <Link to="/myevents" className="nav-link">My Events</Link>
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
                     </div>
                 </div>

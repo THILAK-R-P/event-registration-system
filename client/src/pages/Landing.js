@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../css/landing.css';
 
 const Landing = () => {
-        const userRole = localStorage.getItem('role') || 'user';
+    const userRole = localStorage.getItem('role') || 'user';
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -26,8 +26,8 @@ const Landing = () => {
                             <>
                                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
                                 {userRole === 'admin' && <Link to="/create-event" className="nav-link">Create Event</Link>}
-                                <Link to="/myevents" className="nav-link">My Events</Link>
-                                <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none', background: 'transparent', color: 'var(--navbar-text)', fontSize: '0.95rem', fontWeight: '500' }}>Logout</button>
+                                {userRole === 'user' &&<Link to="/myevents" className="nav-link">My Events</Link>}
+                                <button onClick={handleLogout} className="btn btn-danger" >Logout</button>
                             </>
                         ) : (
                             <>
