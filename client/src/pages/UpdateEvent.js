@@ -5,7 +5,7 @@ import '../css/createEvent.css'; // Reusing create event css
 
 const UpdateEvent = () => {
     const { id } = useParams();
-    const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
+    const [formData, setFormData] = useState({ title: '', description: '', date: '', time: '', location: '', brochureUrl: '' });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,7 +29,9 @@ const UpdateEvent = () => {
                     title: event.title,
                     description: event.description,
                     date: event.date.split('T')[0], // Extract date part
-                    location: event.location
+                    time: event.time || '',
+                    location: event.location,
+                    brochureUrl: event.brochureUrl || ''
                 });
             }
         } catch (err) {
@@ -130,6 +132,20 @@ const UpdateEvent = () => {
                                 />
                             </div>
                             <div className="form-group">
+                                <label>Time</label>
+                                <input
+                                    className="input-field"
+                                    name="time"
+                                    type="time"
+                                    value={formData.time}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
                                 <label>Location</label>
                                 <input
                                     className="input-field"
@@ -137,6 +153,16 @@ const UpdateEvent = () => {
                                     value={formData.location}
                                     onChange={handleChange}
                                     required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Brochure URL (Optional)</label>
+                                <input
+                                    className="input-field"
+                                    name="brochureUrl"
+                                    type="url"
+                                    value={formData.brochureUrl}
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>

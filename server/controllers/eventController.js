@@ -4,7 +4,7 @@ const Event = require('../models/Event');
 
 exports.createEvent = async (req, res) => {
     try {
-        const { title, description, date, location } = req.body;
+        const { title, description, date, time, location, brochureUrl } = req.body;
 
         const userId = req.user ? req.user.id : "65b2f9a1e8b2c3d4e5f6a7b8";
 
@@ -13,7 +13,9 @@ exports.createEvent = async (req, res) => {
             title,
             description,
             date,
-            location
+            time,
+            location,
+            brochureUrl
         });
 
         await newEvent.save();
@@ -88,11 +90,13 @@ exports.updateEvent = async (req, res) => {
             return res.status(403).json({ message: "Access denied. Only admins can update events." });
         }
 
-        const { title, description, date, location } = req.body;
+        const { title, description, date, time, location, brochureUrl } = req.body;
         event.title = title || event.title;
         event.description = description || event.description;
         event.date = date || event.date;
+        event.time = time || event.time;
         event.location = location || event.location;
+        if (brochureUrl !== undefined) event.brochureUrl = brochureUrl;
 
         await event.save();
         res.json(event);

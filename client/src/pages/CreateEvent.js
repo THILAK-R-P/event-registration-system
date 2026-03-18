@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import DarkModeToggle from '../components/DarkModeToggle';
 import '../css/createEvent.css';
 
 const CreateEvent = () => {
-    const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
+    const [formData, setFormData] = useState({ title: '', description: '', date: '', time: '', location: '', brochureUrl: '' });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,6 +53,7 @@ const CreateEvent = () => {
                         <Link to="/" className="nav-logo">EventSys</Link>
                     </div>
                     <div className="nav-menu">
+                        <DarkModeToggle />
                         <Link to="/dashboard" className="nav-link">Dashboard</Link>
                         <span className="nav-link active">Create Event</span>
                         <button onClick={handleLogout} className="btn btn-danger" style={{ border: 'none' }}>Logout</button>
@@ -105,6 +107,20 @@ const CreateEvent = () => {
                                 />
                             </div>
                             <div className="form-group">
+                                <label>Time</label>
+                                <input
+                                    className="input-field"
+                                    name="time"
+                                    type="time"
+                                    value={formData.time}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
                                 <label>Location</label>
                                 <input
                                     className="input-field"
@@ -113,6 +129,17 @@ const CreateEvent = () => {
                                     value={formData.location}
                                     onChange={handleChange}
                                     required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Brochure URL (Optional)</label>
+                                <input
+                                    className="input-field"
+                                    name="brochureUrl"
+                                    type="url"
+                                    placeholder="e.g. https://example.com/brochure.pdf"
+                                    value={formData.brochureUrl}
+                                    onChange={handleChange}
                                 />
                             </div>
                         </div>

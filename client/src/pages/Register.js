@@ -17,10 +17,9 @@ const Register = () => {
         try {
 
             await axios.post('http://localhost:5000/api/auth/register', formData);
-            alert('Registration Successful! Now you can login.');
+            alert('Registration Successful!');
 
-
-            navigate('/login');
+            navigate('/dashboard');
         } catch (err) {
             alert(err.response?.data?.message || 'Registration Failed');
         }

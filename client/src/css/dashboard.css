@@ -183,6 +183,38 @@
     border-color: #fca5a5;
 }
 
+.dashboard-header-with-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.search-container {
+    flex: 1;
+    max-width: 400px;
+    margin-left: 1rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+}
+
+@media (max-width: 640px) {
+    .dashboard-header-with-search {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .search-container {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
+
 /* Dashboard Actions Toolbar */
 .dashboard-actions {
     display: flex;
@@ -225,4 +257,74 @@
     .dashboard-toggles .btn {
         flex: 1;
     }
+}
+
+/* Search Bar Styles */
+.search-container {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    max-width: 500px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.no-events-message {
+    text-align: center;
+    padding: 3rem;
+    background: var(--surface-color, #fff);
+    border-radius: var(--radius, 8px);
+    color: var(--text-secondary, #6b7280);
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm, 0 1px 2px 0 rgba(0, 0, 0, 0.05));
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 1rem;
+}
+
+.pagination-info {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.pagination-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--surface-color);
+    color: var(--primary-color);
+    border: 1px solid #d1d5db;
+    box-shadow: var(--shadow-sm);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: var(--primary-color);
+    color: var(--primary-hover);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f3f4f6;
+    color: #9ca3af;
 }
