@@ -29,8 +29,10 @@ const CreateEvent = () => {
                 navigate('/login');
                 return;
             }
-            await axios.post('http://localhost:5000/api/events', formData, {
-                headers: { Authorization: token }
+            await axios.post('https://event-registration-system-8pxu.onrender.com/api/events', formData, {
+                headers: {
+                     Authorization: `Bearer ${token}`
+                }
             });
             alert('Event Created Successfully!');
             navigate('/dashboard');

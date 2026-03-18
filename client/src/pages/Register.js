@@ -16,7 +16,7 @@ const Register = () => {
         e.preventDefault();
         try {
 
-            await axios.post('http://localhost:5000/api/auth/register', formData);
+            await axios.post('https://event-registration-system-8pxu.onrender.com/api/auth/register', formData);
             alert('Registration Successful!');
 
             navigate('/dashboard');

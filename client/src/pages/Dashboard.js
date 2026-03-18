@@ -18,7 +18,6 @@ const formatTime = (timeStr) => {
 const Dashboard = () => {
     const [events, setEvents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [formData, setFormData] = useState({ title: '', description: '', date: '', location: '' });
     const [activeTab, setActiveTab] = useState('bit'); // 'bit' or 'other'
     const [currentPage, setCurrentPage] = useState(1);
     const [pageInput, setPageInput] = useState('1');
@@ -33,7 +32,7 @@ const Dashboard = () => {
 
     const fetchEvents = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/events');
+            const res = await axios.get('https://event-registration-system-8pxu.onrender.com/api/events');
             setEvents(res.data);
         } catch (err) {
             console.error(err);
@@ -49,8 +48,10 @@ const Dashboard = () => {
                 navigate('/login');
                 return;
             }
-            await axios.post(`http://localhost:5000/api/events/${eventId}/join`, {}, {
-                headers: { Authorization: token }
+            await axios.post(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}/join`, {}, {
+                headers: {
+  Authorization: `Bearer ${token}`
+}
             });
             alert('Successfully Joined!');
             fetchEvents();
@@ -63,8 +64,10 @@ const Dashboard = () => {
         if (!window.confirm("Are you sure you want to delete this event?")) return;
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/events/${eventId}`, {
-                headers: { Authorization: token }
+            await axios.delete(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}`, {
+                headers: {
+  Authorization: `Bearer ${token}`
+}
             });
             alert('Event Deleted');
             fetchEvents();
