@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
@@ -40,24 +40,6 @@ const Dashboard = () => {
         }
     };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const token = localStorage.getItem('token');
-            await axios.post('http://localhost:5000/api/events', formData, {
-                headers: { Authorization: token }
-            });
-            alert('Event Created!');
-            fetchEvents();
-            setFormData({ title: '', description: '', date: '', location: '' });
-        } catch (err) {
-            alert('Failed. Only Admins can create events.');
-        }
-    };
 
     const handleJoin = async (eventId) => {
         try {
