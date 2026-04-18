@@ -120,6 +120,17 @@ a {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
+.btn-cancel {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--text-secondary);
+}
+
+.btn-cancel:hover {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+}
+
 .btn-danger {
   background-color: #f3f4f6;
   color: var(--text-secondary);
@@ -138,7 +149,7 @@ a {
 
 
 .container {
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
   padding: 0 2rem;
 }

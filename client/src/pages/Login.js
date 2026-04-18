@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import DarkModeToggle from '../components/DarkModeToggle';
 import '../css/login.css';
+import { toast } from 'react-toastify';
 
 
 const Login = () => {
@@ -15,8 +17,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://event-registration-system-8pxu.onrender.com/api/auth/login', formData);
-            alert('Login Successful!');
+            const res = await axios.post('http://localhost:5000/api/auth/login', formData);
+            toast.success('Login Successful!');
 
 
             localStorage.setItem('token', res.data.token);
@@ -24,12 +26,25 @@ const Login = () => {
 
             navigate('/dashboard');
         } catch (err) {
-            alert(err.response?.data?.message || 'Login Failed');
+            toast.error(err.response?.data?.message || 'Login Failed');
         }
     };
 
     return (
-        <div className="login-container">
+        <div className="login-page">
+            <nav className="navbar">
+                <div className="container nav-container">
+                    <div className="nav-brand">
+                        <Link to="/" className="nav-logo">EventSys</Link>
+                    </div>
+                    <div className="nav-menu">
+                        <DarkModeToggle />
+                        <Link to="/register" className="nav-link">Register</Link>
+                        <span className="nav-link active">Login</span>
+                    </div>
+                </div>
+            </nav>
+            <div className="login-container">
             <div className="form-container">
                 <h2 className="form-title">Login</h2>
                 <form onSubmit={handleSubmit}>
@@ -56,6 +71,7 @@ const Login = () => {
                     <button type="submit" className="btn btn-primary btn-login">Login</button>
                 </form>
             </div>
+        </div>
         </div>
     );
 };

@@ -8,6 +8,7 @@ const Landing = () => {
 
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const isLoggedIn = token && token !== 'undefined' && token !== 'null';
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -23,7 +24,7 @@ const Landing = () => {
                         <Link to="/" className="nav-logo">EventSys</Link>
                     </div>
                     <div className="nav-menu">
-                        {token ? (
+                        {isLoggedIn ? (
                             <>
                                 <DarkModeToggle />
                                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
@@ -54,7 +55,7 @@ const Landing = () => {
                             Discover, create, and participate in seamless event experiences on campus. Bring your ideas to life and engage with the community.
                         </p>
                         <div className="hero-buttons">
-                            {token ? (
+                            {isLoggedIn ? (
                                 <Link to="/dashboard" className="btn btn-primary btn-lg pulse-btn">Explore Dashboard</Link>
                             ) : (
                                 <>

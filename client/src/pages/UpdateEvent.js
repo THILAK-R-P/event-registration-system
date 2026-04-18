@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import '../css/createEvent.css'; // Reusing create event css
+import { toast } from 'react-toastify';
 
 const UpdateEvent = () => {
     const { id } = useParams();
@@ -15,7 +16,7 @@ const UpdateEvent = () => {
 
     const fetchEvent = async () => {
         try {
-            const res = await axios.get(`https://event-registration-system-8pxu.onrender.com/api/events`);
+            const res = await axios.get(`http://localhost:5000/api/events`);
             // The API returns all events, finding the specific one. 
             // Ideally there should be a get-one endpoint, but getEvents returns all.
             // Wait, looking at eventController.js, there is NO getOneEvent.
@@ -36,7 +37,7 @@ const UpdateEvent = () => {
             }
         } catch (err) {
             console.error(err);
-            alert('Failed to fetch event details');
+            toast.error('Failed to fetch event details');
         }
     };
 
@@ -51,7 +52,7 @@ const UpdateEvent = () => {
             const role = localStorage.getItem('role');
 
             if (role !== 'admin') {
-                alert('Only admins can update events');
+                toast.error('Only admins can update events');
                 navigate('/dashboard');
                 return;
             }
@@ -61,11 +62,11 @@ const UpdateEvent = () => {
   Authorization: `Bearer ${token}`
 }
             });
-            alert('Event Updated Successfully!');
+            toast.success('Event Updated Successfully!');
             navigate('/dashboard');
         } catch (err) {
             console.error(err);
-            alert('Failed to update event.');
+            toast.error('Failed to update event.');
         }
     };
 

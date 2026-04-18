@@ -18,6 +18,7 @@ const formatTime = (timeStr) => {
 const MyEvents = () => {
     const [events, setEvents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [viewModalOption, setViewModalOption] = useState({ isOpen: false, event: null });
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const MyEvents = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
-                const res = await axios.get('https://event-registration-system-8pxu.onrender.com/api/events/myevents', {
+                const res = await axios.get('http://localhost:5000/api/events/myevents', {
                     headers: { Authorization: token }
                 });
                 setEvents(res.data);
@@ -123,13 +124,46 @@ const MyEvents = () => {
                                                     View Brochure
                                                 </a>
                                             )}
-                                            <button className="btn btn-primary w-full">View Event</button>
+                                            <button onClick={() => setViewModalOption({ isOpen: true, event })} className="btn btn-primary w-full">View Event</button>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         )}
                     </>
+                )}
+
+                {/* View Event Modal */}
+                {viewModalOption.isOpen && viewModalOption.event && (
+                    <div className="absolute-modal-overlay" style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', zIndex: 1000
+                    }}>
+                        <div className="modal-content" style={{
+                            background: 'var(--surface-color)', padding: '2rem', borderRadius: '8px',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.1)', maxWidth: '500px', width: '90%',
+                            border: '1px solid var(--border-color)'
+                        }}>
+                            <h3 style={{ marginTop: 0, fontSize: '1.5rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>{viewModalOption.event.title}</h3>
+                            <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.6' }}>{viewModalOption.event.description}</p>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '2rem' }}>
+                                <div>
+                                    <strong style={{ color: 'var(--text-primary)', display: 'block', fontSize: '0.9rem' }}>Date & Time</strong>
+                                    <span style={{ color: 'var(--text-secondary)' }}>{new Date(viewModalOption.event.date).toLocaleDateString()} {viewModalOption.event.time && `at ${formatTime(viewModalOption.event.time)}`}</span>
+                                </div>
+                                <div>
+                                    <strong style={{ color: 'var(--text-primary)', display: 'block', fontSize: '0.9rem' }}>Location</strong>
+                                    <span style={{ color: 'var(--text-secondary)' }}>{viewModalOption.event.location}</span>
+                                </div>
+                            </div>
+                            
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button onClick={() => setViewModalOption({ isOpen: false, event: null })} className="btn btn-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>

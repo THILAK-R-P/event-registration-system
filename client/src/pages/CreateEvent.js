@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
 import '../css/createEvent.css';
+import { toast } from 'react-toastify';
 
 const CreateEvent = () => {
     const [formData, setFormData] = useState({ title: '', description: '', date: '', time: '', location: '', brochureUrl: '' });
@@ -11,7 +12,7 @@ const CreateEvent = () => {
     useEffect(() => {
         const role = localStorage.getItem('role');
         if (role !== 'admin') {
-            alert("Access Denied: Only Admins can create events");
+            toast.error("Access Denied: Only Admins can create events");
             navigate('/dashboard');
         }
     }, [navigate]);
@@ -25,20 +26,20 @@ const CreateEvent = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert('Please login first');
+                toast.warning('Please login first');
                 navigate('/login');
                 return;
             }
-            await axios.post('https://event-registration-system-8pxu.onrender.com/api/events', formData, {
+            await axios.post('http://localhost:5000/api/events', formData, {
                 headers: {
                      Authorization: `Bearer ${token}`
                 }
             });
-            alert('Event Created Successfully!');
+            toast.success('Event Created Successfully!');
             navigate('/dashboard');
         } catch (err) {
             console.error(err);
-            alert('Failed. Only Admins can create events.');
+            toast.error('Failed. Only Admins can create events.');
         }
     };
 

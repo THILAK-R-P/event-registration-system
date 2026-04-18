@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle';
 import '../css/dashboard.css';
+import { toast } from 'react-toastify';
 
 const formatTime = (timeStr) => {
     if (!timeStr) return '';
@@ -21,6 +22,9 @@ const Dashboard = () => {
     const [activeTab, setActiveTab] = useState('bit'); // 'bit' or 'other'
     const [currentPage, setCurrentPage] = useState(1);
     const [pageInput, setPageInput] = useState('1');
+    const [deleteModalOption, setDeleteModalOption] = useState({ isOpen: false, eventId: null });
+    const [joinModalOption, setJoinModalOption] = useState({ isOpen: false, eventId: null });
+    const [participantsModalOption, setParticipantsModalOption] = useState({ isOpen: false, participants: [], eventTitle: '' });
     const eventsPerPage = 9;
     const navigate = useNavigate();
 
@@ -32,7 +36,7 @@ const Dashboard = () => {
 
     const fetchEvents = async () => {
         try {
-            const res = await axios.get('https://event-registration-system-8pxu.onrender.com/api/events');
+            const res = await axios.get('http://localhost:5000/api/events');
             setEvents(res.data);
         } catch (err) {
             console.error(err);
@@ -40,39 +44,62 @@ const Dashboard = () => {
     };
 
 
-    const handleJoin = async (eventId) => {
+    const initiateJoin = (eventId) => {
+        setJoinModalOption({ isOpen: true, eventId });
+    };
+
+    const cancelJoin = () => {
+        setJoinModalOption({ isOpen: false, eventId: null });
+    };
+
+    const confirmJoin = async () => {
+        const eventId = joinModalOption.eventId;
+        setJoinModalOption({ isOpen: false, eventId: null });
+        if (!eventId) return;
+
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                alert("Please login to join events");
+                toast.warning("Please login to join events");
                 navigate('/login');
                 return;
             }
-            await axios.post(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}/join`, {}, {
+            await axios.post(`http://localhost:5000/api/events/${eventId}/join`, {}, {
                 headers: {
   Authorization: `Bearer ${token}`
 }
             });
-            alert('Successfully Joined!');
+            toast.success('Successfully Joined!');
             fetchEvents();
         } catch (err) {
-            alert(err.response?.data?.message || 'Failed to join');
+            toast.error(err.response?.data?.message || 'Failed to join');
         }
     };
 
-    const handleDelete = async (eventId) => {
-        if (!window.confirm("Are you sure you want to delete this event?")) return;
+    const initiateDelete = (eventId) => {
+        setDeleteModalOption({ isOpen: true, eventId });
+    };
+
+    const cancelDelete = () => {
+        setDeleteModalOption({ isOpen: false, eventId: null });
+    };
+
+    const confirmDelete = async () => {
+        const eventId = deleteModalOption.eventId;
+        setDeleteModalOption({ isOpen: false, eventId: null });
+        if (!eventId) return;
+
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}`, {
+            await axios.delete(`http://localhost:5000/api/events/${eventId}`, {
                 headers: {
   Authorization: `Bearer ${token}`
 }
             });
-            alert('Event Deleted');
+            toast.success('Event Deleted');
             fetchEvents();
         } catch (err) {
-            alert(err.response?.data?.message || 'Delete Failed');
+            toast.error(err.response?.data?.message || 'Delete Failed');
         }
     };
 
@@ -197,10 +224,10 @@ const Dashboard = () => {
                                                 <button onClick={() => {
                                                     const token = localStorage.getItem('token');
                                                     if (!token) {
-                                                        alert("You must be logged in to delete events");
+                                                        toast.warning("You must be logged in to delete events");
                                                         return;
                                                     }
-                                                    handleDelete(event._id);
+                                                    initiateDelete(event._id);
                                                 }} className="btn btn-danger btn-sm-delete">
                                                     Delete
                                                 </button>
@@ -235,16 +262,24 @@ const Dashboard = () => {
                                             </a>
                                         )}
                                         {userRole === 'admin' ? (
-                                            <Link
-                                                to={`/update-event/${event._id}`}
-                                                className="btn btn-primary w-full"
-                                                style={{ textAlign: 'center' }}
-                                            >
-                                                Update Event
-                                            </Link>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%' }}>
+                                                <Link
+                                                    to={`/update-event/${event._id}`}
+                                                    className="btn btn-primary w-full"
+                                                    style={{ textAlign: 'center' }}
+                                                >
+                                                    Update Event
+                                                </Link>
+                                                <button
+                                                    onClick={() => setParticipantsModalOption({ isOpen: true, participants: event.attendees, eventTitle: event.title })}
+                                                    className="btn btn-secondary w-full"
+                                                >
+                                                    Participants
+                                                </button>
+                                            </div>
                                         ) : (
                                             <button
-                                                onClick={() => handleJoin(event._id)}
+                                                onClick={() => initiateJoin(event._id)}
                                                 className="btn btn-primary w-full"
                                             >
                                                 Join Event
@@ -290,6 +325,93 @@ const Dashboard = () => {
                             </div>
                         )}
                     </>
+                )}
+
+                {/* Confirm Delete Modal */}
+                {deleteModalOption.isOpen && (
+                    <div className="absolute-modal-overlay" style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', zIndex: 1000
+                    }}>
+                        <div className="modal-content" style={{
+                            background: 'var(--surface-color)', padding: '2rem', borderRadius: '8px',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textAlign: 'center', maxWidth: '400px',
+                            border: '1px solid var(--border-color)'
+                        }}>
+                            <h3 style={{ marginTop: 0, fontSize: '1.25rem', color: 'var(--text-color)' }}>Confirm Delete</h3>
+                            <p style={{ margin: '1rem 0', color: 'var(--text-color)' }}>Are you sure you want to delete this event? This action cannot be undone.</p>
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
+                                <button onClick={cancelDelete} className="btn btn-cancel">Cancel</button>
+                                <button onClick={confirmDelete} className="btn btn-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Confirm Join Modal */}
+                {joinModalOption.isOpen && (
+                    <div className="absolute-modal-overlay" style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', zIndex: 1000
+                    }}>
+                        <div className="modal-content" style={{
+                            background: 'var(--surface-color)', padding: '2rem', borderRadius: '8px',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.1)', textAlign: 'center', maxWidth: '400px',
+                            border: '1px solid var(--border-color)'
+                        }}>
+                            <h3 style={{ marginTop: 0, fontSize: '1.25rem', color: 'var(--text-color)' }}>Confirm Join</h3>
+                            <p style={{ margin: '1rem 0', color: 'var(--text-color)' }}>Are you sure you want to join this event?</p>
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1.5rem' }}>
+                                <button onClick={cancelJoin} className="btn btn-cancel">Cancel</button>
+                                <button onClick={confirmJoin} className="btn btn-primary">Join</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Participants Modal */}
+                {participantsModalOption.isOpen && (
+                    <div className="absolute-modal-overlay" style={{
+                        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                        alignItems: 'center', justifyContent: 'center', zIndex: 1000
+                    }}>
+                        <div className="modal-content" style={{
+                            background: 'var(--surface-color)', padding: '2rem', borderRadius: '8px',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.1)', maxWidth: '500px', width: '90%',
+                            maxHeight: '80vh', overflowY: 'auto',
+                            border: '1px solid var(--border-color)'
+                        }}>
+                            <h3 style={{ marginTop: 0, fontSize: '1.25rem', color: 'var(--text-primary)', marginBottom: '1rem' }}>
+                                Participants: {participantsModalOption.eventTitle}
+                            </h3>
+                            
+                            {participantsModalOption.participants && participantsModalOption.participants.length > 0 ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                                    {participantsModalOption.participants.map((p, idx) => {
+                                        const isString = typeof p === 'string';
+                                        const username = isString ? 'Unknown User' : (p.username || p.name || 'Unknown User');
+                                        const email = isString ? 'No email provided' : (p.email || 'No email provided');
+                                        
+                                        return (
+                                            <div key={isString ? idx : (p._id || idx)} style={{ padding: '0.75rem', border: '1px solid var(--border-color)', borderRadius: '6px', background: 'var(--background-color)', display: 'flex', flexDirection: 'column' }}>
+                                                <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{username}</div>
+                                                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{email}</div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            ) : (
+                                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>No participants have joined this event yet.</p>
+                            )}
+
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <button onClick={() => setParticipantsModalOption({ isOpen: false, participants: [], eventTitle: '' })} className="btn btn-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
