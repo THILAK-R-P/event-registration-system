@@ -16,7 +16,7 @@ const UpdateEvent = () => {
 
     const fetchEvent = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/events`);
+            const res = await axios.get(`https://event-registration-system-8pxu.onrender.com/api/events`);
             // The API returns all events, finding the specific one. 
             // Ideally there should be a get-one endpoint, but getEvents returns all.
             // Wait, looking at eventController.js, there is NO getOneEvent.
@@ -57,7 +57,7 @@ const UpdateEvent = () => {
                 return;
             }
 
-            await axios.put(`http://localhost:5000/api/events/${id}`, formData, {
+            await axios.put(`https://event-registration-system-8pxu.onrender.com/api/events/${id}`, formData, {
                 headers: {
   Authorization: `Bearer ${token}`
 }

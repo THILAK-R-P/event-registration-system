@@ -36,7 +36,7 @@ const Dashboard = () => {
 
     const fetchEvents = async () => {
         try {
-            const res = await axios.get('http://localhost:5000/api/events');
+            const res = await axios.get('https://event-registration-system-8pxu.onrender.com/api/events');
             setEvents(res.data);
         } catch (err) {
             console.error(err);
@@ -64,7 +64,7 @@ const Dashboard = () => {
                 navigate('/login');
                 return;
             }
-            await axios.post(`http://localhost:5000/api/events/${eventId}/join`, {}, {
+            await axios.post(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}/join`, {}, {
                 headers: {
   Authorization: `Bearer ${token}`
 }
@@ -91,7 +91,7 @@ const Dashboard = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5000/api/events/${eventId}`, {
+            await axios.delete(`https://event-registration-system-8pxu.onrender.com/api/events/${eventId}`, {
                 headers: {
   Authorization: `Bearer ${token}`
 }

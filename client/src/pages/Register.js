@@ -23,7 +23,7 @@ const Register = () => {
     const confirmRegistration = async () => {
         setIsConfirming(false);
         try {
-            await axios.post('http://localhost:5000/api/auth/register', formData);
+            await axios.post('https://event-registration-system-8pxu.onrender.com/api/auth/register', formData);
             toast.success('Registration Successful!');
             navigate('/login');
         } catch (err) {
